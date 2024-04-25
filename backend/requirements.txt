@@ -1,0 +1,6 @@
+Django
+djangorestframework
+python-decouple
+gunicorn
+whitenoise
+PyJWT
