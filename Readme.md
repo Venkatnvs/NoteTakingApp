@@ -50,8 +50,8 @@ Replace `your_secret_key`, `your_jwt_key`, `your_database_user`, `your_database_
 4. Start the Docker containers:
 ```bash
 docker-compose up -d --build
-docker compose exec web python manage.py migrate --noinput
-docker compose exec web python manage.py collectstatic --noinput
+docker compose exec backend python manage.py migrate --noinput
+docker compose exec backend python manage.py collectstatic --noinput
 ```
 5. Access the application in your web browser:
 Frontend - [http://localhost:3000/](http://localhost:3000/)

@@ -26,10 +26,12 @@ services:
     container_name: django_backend
     environment:
       DB_HOST: db
+    volumes:
+      - static_volume:/app/staticfiles
     env_file:
       - backend/.env
-    ports:
-      - 8000:8000
+    expose:
+      - 8000
     depends_on:
       - db
 
@@ -44,6 +46,19 @@ services:
       - 3000:3000
     depends_on:
       - backend
+  
+  nginx_backend:
+    build:
+      context: nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    volumes:
+      - static_volume:/app/staticfiles
+    ports:
+      - 8000:80
+    depends_on:
+      - backend
 
 volumes:
   postgres_data:
+  static_volume:
