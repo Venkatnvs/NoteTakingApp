@@ -42,23 +42,26 @@ services:
     container_name: react_frontend
     environment:
       NODE_ENV: production
-    ports:
-      - 3000:3000
+    volumes:
+      - frontend_build:/app/build
     depends_on:
       - backend
   
-  nginx_backend:
+  nginx:
     build:
       context: nginx
       dockerfile: Dockerfile
     container_name: nginx
     volumes:
       - static_volume:/app/staticfiles
+      - frontend_build:/usr/share/nginx/html
     ports:
       - 8000:80
     depends_on:
       - backend
+      - frontend
 
 volumes:
   postgres_data:
   static_volume:
+  frontend_build:

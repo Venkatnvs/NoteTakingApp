@@ -1,0 +1,22 @@
+.nav_head{
+    background-color: #181818a1;
+    border-bottom: 1px solid #363535;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-height: 30px;
+}
+.nav_head_title{
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}

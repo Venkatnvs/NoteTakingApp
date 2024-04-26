@@ -3,11 +3,11 @@ FROM node:${NODE_VERSION}-alpine
 
 ENV NODE_ENV production
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY . .
 RUN npm install
 
 EXPOSE 3000
 
-CMD npm start
+CMD npm run build
