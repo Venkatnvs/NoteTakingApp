@@ -1,3 +1,3 @@
-const backendUrl = 'http://localhost:8000/api';
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 export default backendUrl;
