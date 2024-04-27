@@ -2,6 +2,10 @@
 
 This is a simple note-taking application built using Django for the backend and React for the frontend. It allows users to create, read, update, and delete notes. Each note has a title and content, and users can register and login to manage their notes.
 
+Frontend Url: [https://nvs-note-taking-app.vercel.app/](https://nvs-note-taking-app.vercel.app/)
+
+Backend Url: [https://notetakingapp-c2oc.onrender.com/](https://notetakingapp-c2oc.onrender.com/)
+
 ## Features
 
 - User registration and login: Users can register for a new account and login to access their notes.
