@@ -1,11 +1,23 @@
-import {MdDeleteForever} from 'react-icons/md';
+import {MdDeleteForever, MdEditNote} from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
 const Note = ({id, title, content, updated_at, deleteNote}) => {
+    const navigate = useNavigate();
+
     const date = new Date(updated_at);
     updated_at = date.toLocaleString();
     return (
     <div className="note">
-        <div className="nsm_title fw-bold">{title}</div>
+        <div className="note__header justify-content-between">
+            <h5 className="nsm_title fw-bold">{title}</h5>
+            <MdEditNote
+                className="note__edit text-primary fs-5"
+                aria-hidden="true"
+                title="Edit note"
+                size="1.2em"
+                onClick={() => navigate(`/notes/${id}`)}
+            ></MdEditNote>
+        </div>
         <hr className='my-0 py-0'/>
         <div className="note__body">{content}</div>
         <div className="note__footer justify-content-between">

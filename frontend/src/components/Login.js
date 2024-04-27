@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import backendUrl from '../config';
 
@@ -6,6 +6,13 @@ const Login = () => {
   const [credentials, setCredentials] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/notes');
+    }
+  }, [navigate]);
 
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -15,7 +22,6 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      console.log('credentials', credentials);
       const response = await fetch(`${backendUrl}/auth/login`, {
         method: 'POST',
         headers: {
@@ -29,11 +35,10 @@ const Login = () => {
       }
 
       const data = await response.json();
-      console.log('data', data);
       localStorage.setItem('token', data.token);
       localStorage.setItem('fullname', data.user.first_name+' '+data.user.last_name);
       localStorage.setItem('email', data.user.email);
-      navigate('/notes', { replace: true });
+      navigate('/notes');
     } catch (error) {
       setError('Invalid credentials');
     }

@@ -47,15 +47,20 @@ DB_NAME=your_database_name
 DB_PORT=your_database_port
 ```
 Replace `your_secret_key`, `your_jwt_key`, `your_database_user`, `your_database_password`, `your_database_name`, and `your_database_port` with your actual credentials.
-4. Start the Docker containers:
+
+4 .Update the `config.js` file in the `frontend` directory:
+```bash
+backendUrl = 'http://example.com/api'
+```
+5. Start the Docker containers:
 ```bash
 docker-compose up -d --build
 docker compose exec backend python manage.py migrate --noinput
 docker compose exec backend python manage.py collectstatic --noinput
 ```
-5. Access the application in your web browser:
+6. Access the application in your web browser:
 Frontend - [http://localhost:3000/](http://localhost:3000/)
-BAckend - [http://localhost:8000/](http://localhost:8000/)
+Backend - [http://localhost:8000/](http://localhost:8000/)
 
 ## API Endpoints
 

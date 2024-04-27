@@ -12,6 +12,11 @@
     justify-content: space-between;
     word-wrap: break-word;
 }
+.note__header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .note__footer {
     display: flex;
     align-items: center;
@@ -67,6 +72,12 @@
     cursor: pointer;
 }
 .note__delete:hover {
+    transform: scale(1.2);
+}
+.note__edit {
+    cursor: pointer;
+}
+.note__edit:hover {
     transform: scale(1.2);
 }
 .char__progress {

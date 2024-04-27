@@ -11,8 +11,12 @@ const Header = () => {
     return (
         <header className="nav_head">
             <Link to="/" className="nav_head_title">Notes App</Link>
-            <p className="my-0 text-white">Welcome, {localStorage.getItem('fullname')}</p>
-            <span onClick={handleLogout} className="btn btn-danger btn-sm py-0">Logout</span>
+            {localStorage.getItem('token') && (
+                <>
+                <p className="my-0 text-white">Welcome, {localStorage.getItem('fullname')}</p>
+                <span onClick={handleLogout} className="btn btn-danger btn-sm py-0">Logout</span>
+                </>
+            )}
         </header>
     );
 }

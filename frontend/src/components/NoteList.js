@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import backendUrl from '../config';
 import Note from './ui/Note';
 import './css/Note.css';
-import Header from './Header_Nav';
 import CreateNote from './ui/CreateNote';
 import Search from './ui/Search';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
 const fetchNotes = async (token, setNotes) => {
   try {
@@ -84,6 +85,22 @@ const NoteList = () => {
   }, [navigate]);
 
   const deleteNote = (id) => {
+    withReactContent(Swal).fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this note!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteNoteConfirm(id);
+      }
+    }
+    );
+  };
+
+  const deleteNoteConfirm = (id) => {
     const token = localStorage.getItem('token');
     fetch(`${backendUrl}/notes/${id}`, {
       method: 'DELETE',
@@ -102,31 +119,50 @@ const NoteList = () => {
 
   return (
     <div className="container">
-      <Header />
       <div className="col-md-12 mt-3">
         <div className="d-flex justify-content-between align-content-center my-1 align-items-center">
           <h4 className="n_title">Note List</h4>
-          <Search searchHandler={searchHandler}/>
+          <Search searchHandler={searchHandler} />
         </div>
         <div className="notes">
-          {notes.map(note => (note.title.toLowerCase().includes(searchText.toLowerCase()) || note.content.toLowerCase().includes(searchText.toLowerCase())) && (
-            <Note 
-              key={note.id}
-              deleteNote={deleteNote}
-              {...note} 
+          {notes.map(
+            (note) =>
+              (note.title.toLowerCase().includes(searchText.toLowerCase()) ||
+                note.content
+                  .toLowerCase()
+                  .includes(searchText.toLowerCase())) && (
+                <Note key={note.id} deleteNote={deleteNote} {...note} />
+              )
+          )}
+          {searchText === "" && (
+            <CreateNote
+              textHandler={textHandler}
+              textHandlerTitle={textHandlerTitle}
+              saveHandler={saveHandler}
+              inputText={inputText}
+              inputTitle={inputTitle}
             />
-          ))}
-          <CreateNote 
-            textHandler={textHandler}
-            textHandlerTitle={textHandlerTitle}
-            saveHandler={saveHandler}
-            inputText={inputText}
-            inputTitle={inputTitle}
-          />
+          )}
         </div>
       </div>
-      {notes.length === 0 && <div className="text-center text-white my-3">No notes found</div>}
-      {notes.length > 0 && <div className="badge bg-black-05 text-white">Total notes: {notes.length}</div>}
+      { notes.filter(
+        (note) =>
+          note.title.toLowerCase().includes(searchText.toLowerCase()) ||
+          note.content.toLowerCase().includes(searchText.toLowerCase())
+      ).length === 0 &&
+        searchText !== "" && (
+          <div className="text-center text-white my-3">No notes found with '{searchText.toLowerCase()}'</div>
+        )
+        }
+
+      {notes.length === 0 && (
+        <div className="text-center text-white my-3">No notes found</div>
+      )}
+      {notes.length > 0 && searchText === "" && (
+        <div className="badge bg-black-05 text-white">
+          Total notes: {notes.length}
+        </div>
+      )}
     </div>
   );
 };
